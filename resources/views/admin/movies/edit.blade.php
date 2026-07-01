@@ -7,7 +7,7 @@
     </div>
 
     <div class="card" style="max-width: 600px;">
-        <form action="{{ route('admin.movies.update', $movie->id) }}" method="POST">
+        <form action="{{ route('admin.movies.update', $movie->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -60,6 +60,32 @@
                     @endforeach
                 </select>
                 @error('genre_id')<div class="form-error">{{ $message }}</div>@enderror
+            </div>
+
+            <div class="form-group" style="border: 1px dashed #cbd5e1; padding: 1rem; border-radius: 6px; background: #f8fafc; margin-bottom: 1rem;">
+                <label style="font-weight: 700; margin-bottom: 0.5rem; display: block; color: #1e293b;">🖼️ Poster Film</label>
+                
+                @if($movie->poster)
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-size: 0.8rem; color: #6b7280; display: block; margin-bottom: 0.25rem;">Poster Saat Ini:</span>
+                        <img src="{{ $movie->poster_url }}" alt="Poster {{ $movie->title }}" style="width: 100px; height: auto; border-radius: 4px; border: 1px solid #cbd5e1; display: block;">
+                    </div>
+                @endif
+
+                <div class="form-group">
+                    <label for="poster_file" style="font-weight: 500;">Unggah File Baru (PNG, JPG, JPEG, WEBP)</label>
+                    <input type="file" id="poster_file" name="poster_file" accept="image/*">
+                    @error('poster_file')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
+
+                <div style="text-align: center; margin: 0.5rem 0; color: #94a3b8; font-size: 0.85rem; font-weight: 600;">— ATAU —</div>
+
+                <div class="form-group">
+                    <label for="poster_url" style="font-weight: 500;">URL Gambar dari Internet</label>
+                    <input type="url" id="poster_url" name="poster_url"
+                           value="{{ old('poster_url', (str_starts_with($movie->poster, 'http') ? $movie->poster : '')) }}" placeholder="https://example.com/poster.jpg">
+                    @error('poster_url')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
             </div>
 
             <div class="flex gap-1">

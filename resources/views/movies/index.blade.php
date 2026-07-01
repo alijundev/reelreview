@@ -37,6 +37,13 @@
             @foreach($movies as $movie)
                 <a href="{{ route('movies.show', $movie->id) }}" style="text-decoration:none; color:inherit;">
                     <div class="movie-card">
+                        @if($movie->poster_url)
+                            <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }}" style="width: 100%; height: 260px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; display: block;">
+                        @else
+                            <div style="width: 100%; height: 260px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; margin-bottom: 0.5rem; color: #94a3b8; font-size: 2.5rem;">
+                                🎬
+                            </div>
+                        @endif
                         <div class="movie-card-genre">{{ $movie->genre->name }}</div>
                         <div class="movie-card-title">{{ $movie->title }}</div>
                         <div class="movie-card-meta">{{ $movie->director }} &bull; {{ $movie->release_year }}</div>
@@ -71,6 +78,13 @@
             @foreach($recommendations as $movie)
                 <a href="{{ route('movies.show', $movie->id) }}" style="text-decoration:none; color:inherit;">
                     <div class="movie-card">
+                        @if($movie->poster_url)
+                            <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }}" style="width: 100%; height: 260px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; display: block;">
+                        @else
+                            <div style="width: 100%; height: 260px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; margin-bottom: 0.5rem; color: #94a3b8; font-size: 2.5rem;">
+                                🎬
+                            </div>
+                        @endif
                         <div class="movie-card-genre">{{ $movie->genre->name }}</div>
                         <div class="movie-card-title">{{ $movie->title }}</div>
                         <div class="movie-card-meta">{{ $movie->director }} &bull; {{ $movie->release_year }}</div>

@@ -13,24 +13,33 @@
             <a href="{{ route('movies.index') }}" class="btn btn-secondary btn-sm">← Kembali</a>
         </div>
 
-        <h1 style="font-size:1.6rem; margin-bottom:0.5rem;">{{ $movie->title }}</h1>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem;">
+            @if($movie->poster_url)
+                <div style="flex: 0 0 200px; margin: 0 auto;">
+                    <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }}" style="width: 100%; max-width: 200px; height: auto; border-radius: 6px; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                </div>
+            @endif
+            <div style="flex: 1; min-width: 250px;">
+                <h1 style="font-size:1.6rem; margin-bottom:0.5rem; margin-top: 0;">{{ $movie->title }}</h1>
 
-        <div class="text-muted mb-2">
-            🎬 {{ $movie->director }} &nbsp;|&nbsp;
-            📅 {{ $movie->release_year }} &nbsp;|&nbsp;
-            ⏱️ {{ $movie->duration }} menit
-        </div>
+                <div class="text-muted mb-2">
+                    🎬 {{ $movie->director }} &nbsp;|&nbsp;
+                    📅 {{ $movie->release_year }} &nbsp;|&nbsp;
+                    ⏱️ {{ $movie->duration }} menit
+                </div>
 
-        @if($avgRating)
-            <div style="font-size:1.1rem; color:#d97706; font-weight:700; margin-bottom:0.75rem;">
-                ⭐ Rating rata-rata: {{ number_format($avgRating, 1) }}/10
-                <span class="text-muted" style="font-size:0.85rem;">({{ $reviews->count() }} review)</span>
+                @if($avgRating)
+                    <div style="font-size:1.1rem; color:#d97706; font-weight:700; margin-bottom:0.75rem;">
+                        ⭐ Rating rata-rata: {{ number_format($avgRating, 1) }}/10
+                        <span class="text-muted" style="font-size:0.85rem;">({{ $reviews->count() }} review)</span>
+                    </div>
+                @else
+                    <p class="text-muted mb-2">Belum ada rating.</p>
+                @endif
+
+                <p style="line-height:1.7;">{{ $movie->synopsis }}</p>
             </div>
-        @else
-            <p class="text-muted mb-2">Belum ada rating.</p>
-        @endif
-
-        <p style="line-height:1.7;">{{ $movie->synopsis }}</p>
+        </div>
     </div>
 
     {{-- TOMBOL WATCHLIST --}}

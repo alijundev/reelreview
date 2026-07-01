@@ -18,6 +18,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2010,
                 'duration'     => 148,
                 'genre'        => 'Science Fiction',
+                'poster'       => 'images/posters/inception.png',
             ],
             [
                 'title'        => 'The Dark Knight',
@@ -26,6 +27,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2008,
                 'duration'     => 152,
                 'genre'        => 'Action',
+                'poster'       => 'images/posters/dark_knight.png',
             ],
             [
                 'title'        => 'Parasite',
@@ -34,6 +36,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2019,
                 'duration'     => 132,
                 'genre'        => 'Drama',
+                'poster'       => null,
             ],
             [
                 'title'        => 'Get Out',
@@ -42,6 +45,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2017,
                 'duration'     => 104,
                 'genre'        => 'Horror',
+                'poster'       => null,
             ],
             [
                 'title'        => 'Interstellar',
@@ -50,6 +54,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2014,
                 'duration'     => 169,
                 'genre'        => 'Science Fiction',
+                'poster'       => 'images/posters/interstellar.png',
             ],
             [
                 'title'        => 'Spirited Away',
@@ -58,6 +63,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2001,
                 'duration'     => 125,
                 'genre'        => 'Animation',
+                'poster'       => 'images/posters/spirited_away.png',
             ],
             [
                 'title'        => 'The Grand Budapest Hotel',
@@ -66,6 +72,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2014,
                 'duration'     => 99,
                 'genre'        => 'Comedy',
+                'poster'       => null,
             ],
             [
                 'title'        => 'Your Name',
@@ -74,6 +81,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2016,
                 'duration'     => 112,
                 'genre'        => 'Romance',
+                'poster'       => null,
             ],
             [
                 'title'        => 'Joker',
@@ -82,6 +90,7 @@ class MovieSeeder extends Seeder
                 'release_year' => 2019,
                 'duration'     => 122,
                 'genre'        => 'Thriller',
+                'poster'       => null,
             ],
             [
                 'title'        => 'The Lord of the Rings: The Fellowship of the Ring',
@@ -90,13 +99,14 @@ class MovieSeeder extends Seeder
                 'release_year' => 2001,
                 'duration'     => 178,
                 'genre'        => 'Fantasy',
+                'poster'       => null,
             ],
         ];
 
         foreach ($movies as $data) {
             $genre = Genre::where('name', $data['genre'])->first();
             if ($genre) {
-                Movie::firstOrCreate(
+                Movie::updateOrCreate(
                     ['title' => $data['title']],
                     [
                         'synopsis'     => $data['synopsis'],
@@ -104,6 +114,7 @@ class MovieSeeder extends Seeder
                         'release_year' => $data['release_year'],
                         'duration'     => $data['duration'],
                         'genre_id'     => $genre->id,
+                        'poster'       => $data['poster'],
                     ]
                 );
             }

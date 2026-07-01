@@ -95,11 +95,28 @@ class MovieController extends Controller
             'release_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'duration'     => 'required|integer|min:1',
             'genre_id'     => 'required|exists:genres,id',
+            'poster_file'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'poster_url'   => 'nullable|url|max:500',
         ]);
 
-        Movie::create($request->only([
-            'title', 'synopsis', 'director', 'release_year', 'duration', 'genre_id',
-        ]));
+        $posterPath = null;
+
+        if ($request->hasFile('poster_file')) {
+            $path = $request->file('poster_file')->store('posters', 'public');
+            $posterPath = 'storage/' . $path;
+        } elseif ($request->filled('poster_url')) {
+            $posterPath = $request->poster_url;
+        }
+
+        Movie::create([
+            'title'        => $request->title,
+            'synopsis'     => $request->synopsis,
+            'director'     => $request->director,
+            'release_year' => $request->release_year,
+            'duration'     => $request->duration,
+            'genre_id'     => $request->genre_id,
+            'poster'       => $posterPath,
+        ]);
 
         return redirect()->route('admin.movies.index')->with('success', 'Film berhasil ditambahkan.');
     }
@@ -128,11 +145,32 @@ class MovieController extends Controller
             'release_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'duration'     => 'required|integer|min:1',
             'genre_id'     => 'required|exists:genres,id',
+            'poster_file'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'poster_url'   => 'nullable|url|max:500',
         ]);
 
-        $movie->update($request->only([
-            'title', 'synopsis', 'director', 'release_year', 'duration', 'genre_id',
-        ]));
+        $posterPath = $movie->poster; // Default ke poster lama
+
+        if ($request->hasFile('poster_file')) {
+            // Hapus file lama jika ada di local storage
+            if ($movie->poster && str_starts_with($movie->poster, 'storage/')) {
+                @unlink(public_path(str_replace('storage/', 'storage/app/public/', $movie->poster)));
+            }
+            $path = $request->file('poster_file')->store('posters', 'public');
+            $posterPath = 'storage/' . $path;
+        } elseif ($request->filled('poster_url')) {
+            $posterPath = $request->poster_url;
+        }
+
+        $movie->update([
+            'title'        => $request->title,
+            'synopsis'     => $request->synopsis,
+            'director'     => $request->director,
+            'release_year' => $request->release_year,
+            'duration'     => $request->duration,
+            'genre_id'     => $request->genre_id,
+            'poster'       => $posterPath,
+        ]);
 
         return redirect()->route('admin.movies.index')->with('success', 'Film berhasil diperbarui.');
     }

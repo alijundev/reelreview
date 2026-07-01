@@ -49,4 +49,20 @@ class Movie extends Model
     {
         return $this->reviews()->avg('rating') ?? 0;
     }
+
+    /**
+     * Mengambil URL poster film (URL internet atau path aset lokal).
+     */
+    public function getPosterUrlAttribute(): ?string
+    {
+        if (!$this->poster) {
+            return null;
+        }
+
+        if (str_starts_with($this->poster, 'http://') || str_starts_with($this->poster, 'https://')) {
+            return $this->poster;
+        }
+
+        return asset($this->poster);
+    }
 }

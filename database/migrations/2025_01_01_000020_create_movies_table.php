@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('director');
             $table->year('release_year');
             $table->integer('duration'); // dalam menit
-            $table->string('poster')->nullable(); // path poster opsional
+            $table->text('poster')->nullable(); // path/URL poster opsional
             $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
