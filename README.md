@@ -178,7 +178,7 @@ Pastikan konfigurasi database di file `.env` seperti berikut:
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=reelreview
+DB_DATABASE=db_reelreview
 DB_USERNAME=reelreview_user
 DB_PASSWORD=reelreview_pass
 ```
@@ -266,6 +266,13 @@ Data film contoh
 ```
 
 Jika seeder belum dibuat, cukup jalankan migration saja.
+
+### 8.1 Menjalankan Build Asset (Vite) — Wajib!
+Karena folder project di-mount ke container (`.:/var/www/html`), folder build Vite pada container akan tertimpa oleh host. Anda **wajib** melakukan compile asset CSS/JS agar tampilan dapat termuat dengan benar (menghindari error `Vite manifest not found`):
+
+```bash
+docker compose exec app npm run build
+```
 
 ---
 
@@ -825,6 +832,7 @@ cp .env.example .env
 docker compose up -d --build
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate --seed
+docker compose exec app npm run build
 ```
 
 Untuk Windows PowerShell, bagian copy `.env` gunakan:

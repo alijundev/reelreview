@@ -6,4 +6,4 @@ vendor
 storage/logs
 npm-debug.log
 Dockerfile
-compose.yml
+docker-compose.yml

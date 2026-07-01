@@ -1,9 +1,606 @@
-@import 'tailwindcss';
+/* ============================================================
+   ReelReview — Global Stylesheet (Vanilla CSS)
+   Simple, clean, fungsional
+   ============================================================ */
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+    background-color: #1e293b;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    text-decoration: none;
+    color: #93c5fd;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+}
+
+.navbar-links a {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+.navbar-links a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-search {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navbar-search input {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #475569;
+    border-radius: 4px;
+    background: #334155;
+    color: #fff;
+    font-size: 0.9rem;
+    width: 200px;
+}
+
+.navbar-search input::placeholder {
+    color: #94a3b8;
+}
+
+.navbar-search button {
+    padding: 0.4rem 0.75rem;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.navbar-search button:hover {
+    background: #1d4ed8;
+}
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* ============================================================
+   ALERT / FLASH MESSAGE
+   ============================================================ */
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+}
+
+.alert-error {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+}
+
+.alert-info {
+    background-color: #dbeafe;
+    border: 1px solid #93c5fd;
+    color: #1e40af;
+}
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-error {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1.1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #16a34a;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #d97706;
+    color: #fff;
+}
+
+.btn-sm {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   MOVIE GRID
+   ============================================================ */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.movie-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 1rem;
+    transition: box-shadow 0.2s;
+}
+
+.movie-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.movie-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #1e293b;
+}
+
+.movie-card-meta {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.movie-card-genre {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.movie-card-rating {
+    font-size: 0.85rem;
+    color: #d97706;
+    font-weight: 600;
+}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.table th,
+.table td {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #374151;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background: #f9fafb;
+}
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-spoiler {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-genre {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.badge-rating {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ============================================================
+   RATING STARS (teks)
+   ============================================================ */
+.rating-display {
+    color: #f59e0b;
+    font-weight: 700;
+}
+
+/* ============================================================
+   SPOILER BLUR
+   ============================================================ */
+.spoiler-content {
+    filter: blur(5px);
+    user-select: none;
+    transition: filter 0.3s;
+}
+
+.spoiler-content.revealed {
+    filter: none;
+}
+
+.spoiler-warning {
+    font-size: 0.8rem;
+    color: #92400e;
+    background: #fef3c7;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    display: inline-block;
+}
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.page-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filter-bar {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.filter-bar select {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: #fff;
+}
+
+/* ============================================================
+   ADMIN LAYOUT
+   ============================================================ */
+.admin-wrapper {
+    display: flex;
+    min-height: calc(100vh - 53px);
+}
+
+.admin-sidebar {
+    width: 220px;
+    background: #1e293b;
+    color: #cbd5e1;
+    flex-shrink: 0;
+    padding: 1.25rem 0;
+}
+
+.admin-sidebar h3 {
+    padding: 0 1.25rem 0.75rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 0.5rem;
+}
+
+.admin-sidebar a {
+    display: block;
+    padding: 0.55rem 1.25rem;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+    background: #334155;
+    color: #fff;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* ============================================================
+   STAT CARDS (Dashboard)
+   ============================================================ */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.stat-card-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.stat-card-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+.pagination {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination span {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #374151;
+    background: #fff;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background: #f1f5f9;
+    text-decoration: none;
+}
+
+.pagination .active span {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+/* ============================================================
+   AUTH FORM
+   ============================================================ */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 53px);
+    background: #f1f5f9;
+}
+
+.auth-box {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-box h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    color: #1e293b;
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+.text-muted {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.flex { display: flex; }
+.gap-1 { gap: 0.5rem; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.w-full { width: 100%; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+    margin-top: 2rem;
 }

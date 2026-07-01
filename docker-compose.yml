@@ -9,6 +9,7 @@ services:
     volumes:
       - .:/var/www/html
       - /var/www/html/vendor
+      - /var/www/html/node_modules
     depends_on:
       - db
     networks:
@@ -21,7 +22,7 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_DATABASE: reelreview
+      MYSQL_DATABASE: db_reelreview
       MYSQL_USER: reelreview_user
       MYSQL_PASSWORD: reelreview_pass
       MYSQL_ROOT_PASSWORD: root
