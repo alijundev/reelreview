@@ -274,6 +274,13 @@ Karena folder project di-mount ke container (`.:/var/www/html`), folder build Vi
 docker compose exec app npm run build
 ```
 
+### 8.2 Hubungkan Storage Link (Wajib untuk Fitur Poster Upload)
+Karena folder `public/storage` diabaikan oleh Git, setiap anggota kelompok yang baru melakukan clone **wajib** membuat symbolic link secara manual di dalam container agar berkas gambar poster yang diunggah/di-seed dapat diakses dari browser:
+
+```bash
+docker compose exec app php artisan storage:link
+```
+
 ---
 
 ## 9. Mengakses Aplikasi
@@ -832,6 +839,7 @@ cp .env.example .env
 docker compose up -d --build
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan storage:link
 docker compose exec app npm run build
 ```
 
